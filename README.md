@@ -46,8 +46,6 @@ composer install
 复制环境变量文件并修改配置：
 
 ```bash
-cp .env.develop .env
-# 编辑 .env 文件，配置数据库、Redis 等信息
 vi .env
 ```
 
