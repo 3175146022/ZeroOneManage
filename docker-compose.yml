@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mstxhy:
+    container_name: mstxhy-skeleton
+    image: mstxhy-skeleton
+    build:
+      context: .
+      args:
+        APP_ENV: ${APP_ENV:-product}
+        SCAN_CACHEABLE: ${SCAN_CACHEABLE:-true}
+    volumes:
+      - ./:/opt/www
+    ports:
+      - 9501:9501
+    environment:
+      - APP_ENV=${APP_ENV:-product}
+      - SCAN_CACHEABLE=${SCAN_CACHEABLE:-true}
+
+networks:
+  default:
+    name: mstxhy-skeleton
