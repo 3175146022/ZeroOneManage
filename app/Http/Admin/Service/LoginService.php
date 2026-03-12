@@ -55,8 +55,8 @@ final class LoginService extends IService
     {
         try {
             // 验证码校验
-//            $captchaCacheKey = CaptchaEnum::fromName(CaptchaEnum::CAPTCHA);
-//            $this->captcha->validate($captchaCacheKey, $params['captcha'], $params['captcha_key']);
+            $captchaCacheKey = CaptchaEnum::fromName(CaptchaEnum::CAPTCHA);
+            $this->captcha->validate($captchaCacheKey, $params['captcha'] ?? '', $params['captcha_key'] ?? '');
 
             // 账号校验
             $admin = $this->repository->findByUsername($params['username']);

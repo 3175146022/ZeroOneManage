@@ -112,9 +112,9 @@ final class RuleService extends IService
     {
         $route = [
             'name' => $menu['route_name'] ?? '',
-            'path' => $menu['route_path'],
-            'component' => $menu['component'],
-            'redirect' => $menu['redirect'],
+            'path' => $menu['route_path'] ?? '',
+            'component' => $menu['component'] ?? '',
+            'redirect' => $menu['redirect'] ?? '',
             'meta' => [
                 'title' => $menu['name'],
                 'icon' => $menu['icon'],

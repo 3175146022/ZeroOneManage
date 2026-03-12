@@ -61,8 +61,8 @@ final class OperationMiddleware implements MiddlewareInterface
         if ($routerDescription) {
             $adminInfo = $this->getAdminInfo($request);
             $this->dispatcher->dispatch(new RequestOperationEvent(
-                adminId: (int)$adminInfo['id'] ?? 0,
-                username: (string)$adminInfo['username'] ?? '',
+                adminId: (int)($adminInfo['id'] ?? 0),
+                username: (string)($adminInfo['username'] ?? ''),
                 path: $request->getUri()->getPath(),
                 title: $routerDescription,
                 body: $this->getBodyFormat($request) ?: '',
@@ -86,15 +86,16 @@ final class OperationMiddleware implements MiddlewareInterface
     private function getAdminInfo(ServerRequestInterface $request): array
     {
         if ($request->getUri()->getPath() === '/admin/login') {
-            $condition = ['username' => $request->getParsedBody()['username'] ?? ''];
+            $body = $request->getParsedBody() ?? [];
+            $condition = ['username' => $body['username'] ?? ''];
             $user = $this->adminRepository->getQuery()->where($condition)->first();
         } else {
             $user = $this->currentUser->user();
         }
 
         return [
-            'id' => $user->id ?? 0,
-            'username' => $user->username ?? '',
+            'id' => $user?->id ?? 0,
+            'username' => $user?->username ?? '',
         ];
     }
 
@@ -107,7 +108,7 @@ final class OperationMiddleware implements MiddlewareInterface
     private function getBodyFormat(ServerRequestInterface $request): bool|string
     {
         $getBody = $request->getQueryParams();
-        $postBody = $request->getParsedBody();
+        $postBody = $request->getParsedBody() ?? [];
 
         // 特殊接口处理
         if ($request->getUri()->getPath() === '/admin/login') {

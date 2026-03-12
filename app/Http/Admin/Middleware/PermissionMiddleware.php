@@ -57,7 +57,10 @@ final class PermissionMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $this->check($request->getAttribute(Dispatched::class));
+        $dispatched = $request->getAttribute(Dispatched::class);
+        if ($dispatched !== null) {
+            $this->check($dispatched);
+        }
         return $handler->handle($request);
     }
 
@@ -71,7 +74,7 @@ final class PermissionMiddleware implements MiddlewareInterface
      */
     private function check(Dispatched $dispatched): void
     {
-        $parseResult = $this->parse($dispatched->handler->callback);
+        $parseResult = $this->parse($dispatched->handler?->callback);
         if (!$parseResult) {
             return;
         }

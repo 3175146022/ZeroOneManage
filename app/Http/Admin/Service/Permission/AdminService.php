@@ -100,7 +100,7 @@ final class AdminService extends IService
         }
 
         $user = $this->redisCacheSupport->get(AdminEnum::fromName(AdminEnum::ADMIN_TOKEN), $token) ?: [];
-        if (!$user) {
+        if (empty($user)) {
             return null;
         }
 

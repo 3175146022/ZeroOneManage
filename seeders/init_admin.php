@@ -24,7 +24,7 @@ class InitAdmin extends Seeder
             'nickname' => 'Admin',
             'password' => '8da049176991ee06d9d3d871f0d77517',
             'salt' => '214e8c',
-            'avatar' => '/avtar.jpeg',
+            'avatar' => '/avatar.jpeg',
             'is_super' => 1,
         ]);
 

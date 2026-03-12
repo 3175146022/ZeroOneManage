@@ -61,7 +61,7 @@ final class Admin extends Model
      * @var array|string[]
      */
     protected array $attributes = [
-        'avatar' => '/avtar.jpeg',
+        'avatar' => '/avatar.jpeg',
     ];
 
     // 列表过滤字段
