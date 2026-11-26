@@ -21,10 +21,6 @@ use OpenApi\Attributes as OA;
 #[OA\Schema(schema: 'ApiResponse', required: ['code', 'message', 'data'], properties: [
     new OA\Property(property: 'code', description: '业务状态码，200 表示成功', type: 'integer', enum: [200], example: 200),
     new OA\Property(property: 'message', description: '接口返回的处理结果提示', type: 'string', example: 'success'),
-    new OA\Property(property: 'data', description: '按接口定义返回的对象、列表或空数组', oneOf: [
-        new OA\Schema(type: 'object', additionalProperties: true),
-        new OA\Schema(type: 'array', items: new OA\Items()),
-    ]),
 ], type: 'object')]
 #[OA\Schema(schema: 'TokenPair', description: '登录会话的访问令牌和刷新令牌', required: ['access_token', 'refresh_token'], properties: [
     new OA\Property(property: 'access_token', description: '用于 X-Access-Token 请求头', type: 'string'),
