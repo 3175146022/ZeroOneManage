@@ -38,7 +38,7 @@ final class AdminOpLogController extends AbstractController
         operationId: 'listOperationLogs',
         summary: '分页查询管理员操作日志',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/操作日志'],
         parameters: [
             new OA\QueryParameter(name: 'page', schema: new OA\Schema(type: 'integer', default: 1)),
             new OA\QueryParameter(name: 'per_page', schema: new OA\Schema(type: 'integer', default: 10)),
@@ -54,7 +54,11 @@ final class AdminOpLogController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/OperationLogPage'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作日志分页数据',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/OperationLogPage')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -81,7 +85,7 @@ final class AdminOpLogController extends AbstractController
         operationId: 'getOperationLog',
         summary: '查询管理员操作日志详情',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/操作日志'],
         parameters: [
             new OA\QueryParameter(name: 'id', required: true, schema: new OA\Schema(type: 'integer', minimum: 1)),
         ],
@@ -93,7 +97,11 @@ final class AdminOpLogController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/OperationLog'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作日志详情',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/OperationLog')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),

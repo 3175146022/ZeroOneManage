@@ -39,7 +39,7 @@ final class RuleController extends AbstractController
         operationId: 'listRules',
         summary: '查询权限菜单树',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         parameters: [
             new OA\QueryParameter(name: 'id', schema: new OA\Schema(type: 'integer')),
             new OA\QueryParameter(name: 'status', schema: new OA\Schema(type: 'integer', enum: [1, 2, 3])),
@@ -53,7 +53,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Rules'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '目录、菜单和权限规则树',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Rules')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -79,7 +83,7 @@ final class RuleController extends AbstractController
         operationId: 'getRule',
         summary: '查询权限规则详情',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         parameters: [
             new OA\QueryParameter(name: 'id', required: true, schema: new OA\Schema(type: 'integer')),
         ],
@@ -91,7 +95,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Rule'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '菜单规则资料',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Rule')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -120,7 +128,7 @@ final class RuleController extends AbstractController
         summary: '创建目录、菜单或权限规则',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(required: ['pid', 'type', 'name', 'weight', 'status'], allOf: [new OA\Schema(ref: '#/components/schemas/RuleRequest')])),
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -129,7 +137,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -159,7 +171,7 @@ final class RuleController extends AbstractController
         summary: '更新权限规则',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(required: ['id', 'pid', 'type', 'name', 'weight', 'status'], allOf: [new OA\Schema(ref: '#/components/schemas/RuleRequest')])),
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -168,7 +180,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -199,7 +215,7 @@ final class RuleController extends AbstractController
         summary: '删除权限规则',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/RuleIdRequest')),
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -208,7 +224,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -233,7 +253,7 @@ final class RuleController extends AbstractController
         operationId: 'getRuleOptions',
         summary: '获取权限规则选项',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/菜单规则'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -242,7 +262,11 @@ final class RuleController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Options'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '下拉选项树',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Options')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),

@@ -42,7 +42,7 @@ final class AdminController extends AbstractController
         operationId: 'listAdmins',
         summary: '分页查询管理员',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/管理员'],
         parameters: [
             new OA\QueryParameter(name: 'page', schema: new OA\Schema(type: 'integer', default: 1)),
             new OA\QueryParameter(name: 'per_page', schema: new OA\Schema(type: 'integer', default: 10)),
@@ -64,7 +64,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/AdminPage'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '管理员分页数据',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/AdminPage')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -94,7 +98,7 @@ final class AdminController extends AbstractController
         summary: '创建管理员',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(allOf: [new OA\Schema(ref: '#/components/schemas/AdminRequest')], required: ['group_ids', 'username', 'nickname', 'password', 'status'])),
-        tags: ['权限管理'],
+        tags: ['权限管理/管理员'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -103,7 +107,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -130,7 +138,7 @@ final class AdminController extends AbstractController
         operationId: 'getAdmin',
         summary: '查询管理员详情',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/管理员'],
         parameters: [
             new OA\QueryParameter(name: 'id', required: true, schema: new OA\Schema(type: 'integer', minimum: 2)),
         ],
@@ -142,7 +150,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Admin'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '管理员资料及所属角色组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Admin')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -171,7 +183,7 @@ final class AdminController extends AbstractController
         summary: '更新管理员',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(allOf: [new OA\Schema(ref: '#/components/schemas/AdminRequest')], required: ['id', 'username', 'nickname', 'status'])),
-        tags: ['权限管理'],
+        tags: ['权限管理/管理员'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -180,7 +192,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -210,7 +226,7 @@ final class AdminController extends AbstractController
         summary: '删除管理员',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/ManagedIdRequest')),
-        tags: ['权限管理'],
+        tags: ['权限管理/管理员'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -219,7 +235,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -255,7 +275,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/CurrentUser'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '当前登录管理员资料',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/CurrentUser')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -290,7 +314,11 @@ final class AdminController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/MenuRoutes'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '当前管理员可访问的菜单路由树',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/MenuRoutes')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),

@@ -43,7 +43,11 @@ final class LoginController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Captcha'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '图形验证码及其标识',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Captcha')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -79,7 +83,11 @@ final class LoginController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/TokenPair'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '登录会话的访问令牌和刷新令牌',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/TokenPair')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -116,7 +124,11 @@ final class LoginController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -154,7 +166,11 @@ final class LoginController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/TokenPair'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '登录会话的访问令牌和刷新令牌',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/TokenPair')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),

@@ -39,7 +39,7 @@ final class GroupController extends AbstractController
         operationId: 'listGroups',
         summary: '分页查询角色组',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         parameters: [
             new OA\QueryParameter(name: 'page', description: '页码，默认 1', schema: new OA\Schema(type: 'integer', default: 1)),
             new OA\QueryParameter(name: 'per_page', description: '每页数量，默认 10', schema: new OA\Schema(type: 'integer', default: 10)),
@@ -57,7 +57,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/GroupPage'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '角色组分页数据',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/GroupPage')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -83,7 +87,7 @@ final class GroupController extends AbstractController
         operationId: 'getGroup',
         summary: '查询角色组详情',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         parameters: [
             new OA\QueryParameter(name: 'id', required: true, schema: new OA\Schema(type: 'integer', minimum: 2)),
         ],
@@ -95,7 +99,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Group'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '角色组资料',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Group')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -123,7 +131,7 @@ final class GroupController extends AbstractController
         summary: '创建角色组',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(required: ['pid', 'name', 'rules', 'status'], allOf: [new OA\Schema(ref: '#/components/schemas/GroupRequest')])),
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -132,7 +140,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -161,7 +173,7 @@ final class GroupController extends AbstractController
         summary: '更新角色组',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(required: ['id', 'pid', 'name', 'rules', 'status'], allOf: [new OA\Schema(ref: '#/components/schemas/GroupRequest')])),
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -170,7 +182,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -201,7 +217,7 @@ final class GroupController extends AbstractController
         summary: '删除角色组',
         security: ApiDocumentation::ADMIN,
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: '#/components/schemas/ManagedIdRequest')),
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -210,7 +226,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/EmptyData'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '操作成功，无附加数据，返回空数组',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/EmptyData')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -235,7 +255,7 @@ final class GroupController extends AbstractController
         operationId: 'getGroupOptions',
         summary: '获取角色组选项',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -244,7 +264,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/Options'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '下拉选项树',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/Options')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),
@@ -270,7 +294,7 @@ final class GroupController extends AbstractController
         operationId: 'getGroupMenuIds',
         summary: '获取角色组菜单权限 ID',
         security: ApiDocumentation::ADMIN,
-        tags: ['权限管理'],
+        tags: ['权限管理/角色组'],
         parameters: [
             new OA\QueryParameter(name: 'id', required: true, schema: new OA\Schema(type: 'integer', minimum: 2)),
         ],
@@ -282,7 +306,11 @@ final class GroupController extends AbstractController
                     new OA\Schema(allOf: [
                         new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                         new OA\Schema(properties: [
-                            new OA\Property(property: 'data', ref: '#/components/schemas/MenuIds'),
+                            new OA\Property(
+                                property: 'data',
+                                description: '角色组已分配的菜单规则 ID 列表，ID 以字符串返回',
+                                allOf: [new OA\Schema(ref: '#/components/schemas/MenuIds')],
+                            ),
                         ]),
                     ]),
                     new OA\Schema(ref: '#/components/schemas/ApiError'),

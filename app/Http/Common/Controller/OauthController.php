@@ -35,7 +35,11 @@ final class OauthController extends AbstractController
                 content: new OA\JsonContent(allOf: [
                     new OA\Schema(ref: '#/components/schemas/ApiResponse'),
                     new OA\Schema(properties: [
-                        new OA\Property(property: 'data', ref: '#/components/schemas/Certificate'),
+                        new OA\Property(
+                            property: 'data',
+                            description: '用于请求签名的应用凭证',
+                            allOf: [new OA\Schema(ref: '#/components/schemas/Certificate')],
+                        ),
                     ]),
                 ]),
             ),
