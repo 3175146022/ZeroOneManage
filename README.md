@@ -82,6 +82,19 @@ php bin/hyperf.php server:watch
 docker-compose up -d
 ```
 
+## API 文档
+
+Hyperf 启动时根据控制器上的 OpenAPI 属性生成文档。默认从 API 服务的同一端口访问。
+
+- [Swagger UI](http://127.0.0.1:9501/swagger) 支持查看接口、填写参数和发起请求。页面从 jsDelivr 加载 Swagger UI 资源。
+- [OpenAPI JSON](http://127.0.0.1:9501/swagger/openapi.json) 可导入接口工具，也可从 `storage/swagger/http.json` 获取。
+
+可以运行 `php bin/hyperf.php gen:swagger` 单独生成 JSON。用 `SWAGGER_ENABLED=false` 关闭文档路由和启动时生成，用 `SWAGGER_API_URL` 配置文档中的 API 基础地址。
+
+调用 `/admin` 接口时，先通过 `GET /oauth/certificate` 获取 `app_key` 和 `app_secret`。把 `app_key` 放入同名请求头，提交秒级 Unix 时间戳 `timestamp` 和当前请求的 `signature`。签名使用 `app_secret` 对排序后以 `&` 拼接的 `键=值` 参数执行 HMAC-SHA256。签名参数包括查询参数和请求体字段，排除 `signature`、数组、文件和长度超过 100 的值。布尔值转为 `1` 或 `0`，空值转为空字符串。同名字段以查询参数为准。Swagger UI 中需要手动填写当前请求的签名及时间戳。`APP_DEBUG=true` 时跳过签名校验。
+
+登录与刷新接口返回 `access_token`。当前用户和权限管理接口通过 `X-Access-Token` 请求头接收访问令牌，刷新接口也需要该请求头。收到 HTTP 200 后，请继续检查 JSON 的 `code` 字段。
+
 ## 📂 目录结构
 
 ```text

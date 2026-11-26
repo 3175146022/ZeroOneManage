@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Admin\Middleware\OperationMiddleware;
+use App\Http\Common\Controller\SwaggerController;
 use App\Http\Common\Middleware\SignatureMiddleware;
 use Hyperf\HttpServer\Router\Router;
 use function Hyperf\Support\env;
@@ -81,8 +82,8 @@ final class RouteFactory
 RouteFactory::createMultiple([
     // 管理端路由
     [
-        'prefix' => '/admin',
-        'path' => BASE_PATH . '/app/Http/Admin/Routes/',
+        'prefix'     => '/admin',
+        'path'       => BASE_PATH . '/app/Http/Admin/Routes/',
         'middleware' => [
             SignatureMiddleware::class => 100,
             OperationMiddleware::class => 98,
@@ -90,8 +91,13 @@ RouteFactory::createMultiple([
     ],
     // 认证路由
     [
-        'prefix' => '/oauth',
-        'path' => BASE_PATH . '/app/Http/Common/Routes/',
+        'prefix'     => '/oauth',
+        'path'       => BASE_PATH . '/app/Http/Common/Routes/',
         'middleware' => []
     ]
 ]);
+
+if (env('SWAGGER_ENABLED', true)) {
+    Router::get('/swagger', [SwaggerController::class, 'index']);
+    Router::get('/swagger/openapi.json', [SwaggerController::class, 'specification']);
+}
